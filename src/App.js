@@ -8,31 +8,21 @@ class App extends React.Component {
 		super();
 		this.expenseItems = [];
 
-		const expenseItem1 = new ExpenseItem({
-			date: (new Date()).toISOString(),
-			title: 'Car Insurance',
-			amount: 50000
-		});
+		this.addExpenseItem((new Date()).toISOString(), 'Bike Insurance', 20000);
+		this.addExpenseItem((new Date()).toISOString(), 'Car Insurance', 50000);
+		this.addExpenseItem((new Date()).toISOString(), 'Life Insurance', 120000);
+	}
 
-		const expenseItem2 = new ExpenseItem({
-			date: (new Date()).toISOString(),
-			title: 'Bike Insurance',
-			amount: 20000
-		});
-
-		const expenseItem3 = new ExpenseItem({
-			date: (new Date()).toISOString(),
-			title: 'Life Insurance',
-			amount: 1200000
-		});
-
-		this.expenseItems.push(expenseItem1.render());
-		this.expenseItems.push(expenseItem2.render());
-		this.expenseItems.push(expenseItem3.render());
+	addExpenseItem(date, title, amount) {
+		const expenseItem = new ExpenseItem(date, title, amount);
+		this.expenseItems.push(expenseItem.render());
 	}
 
 	render() {
-		return	<div> { this.expenseItems } </div>;
+		return	<div>
+					<h1>Track Expenses</h1>
+					<div> { this.expenseItems } </div>;
+				</div>;
 	}
 }
 

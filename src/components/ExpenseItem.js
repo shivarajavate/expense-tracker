@@ -2,11 +2,11 @@ import React from 'react';
 import './ExpenseItem.css';
 
 class ExpenseItem extends React.Component {
-	constructor(expenseItem) {
+	constructor(date, title, amount) {
 		super();
-		this.date = expenseItem.date;
-		this.title = expenseItem.title;
-		this.amount = expenseItem.amount;
+		this.date = date;
+		this.title = title;
+		this.amount = amount;
 	}
 
 	render() {
