@@ -22,6 +22,13 @@ const NewExpense = (props) => {
 		console.log(event.target.value);
 	};
 
+	const onCancelClickHandler = () => {
+		props.onCancelNewExpense();
+		setNewDate('');
+		setNewTitle('');
+		setNewAmount('');
+	};
+
 	const onSubmitHandler = (event) => {
 		event.preventDefault();
 		const newExpense = { date: new Date(newDate), title: newTitle, amount: newAmount };
@@ -59,8 +66,13 @@ const NewExpense = (props) => {
 							value={newAmount}
 							onChange={onChangeAmountHandler} />
 					</div>
-					<div>
-						<button type='submit'>Add Expense</button>
+					<div className='new-expense__control'>
+					</div>
+					<div className='new-expense__control'>
+					</div>
+					<div className='new-expense__control'>
+						<button onClick={onCancelClickHandler}>Cancel</button>
+						<button type='submit'>Save</button>
 					</div>
 				</div>
 			</form>

@@ -11,10 +11,14 @@
 
 .new-expense__controls {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
-	margin-bottom: 1rem;
+	flex-flow: row wrap;
 	text-align: left;
+}
+
+.new-expense__control {
+	order: 1;
+	width: 50%;
+	margin-bottom: 1rem;
 }
 
 .new-expense__control label {
@@ -30,10 +34,6 @@
 	border: 1px solid #ccc;
 	width: 20rem;
 	max-width: 100%;
-}
-
-.new-expense__actions {
-	text-align: right;
 }
 
 .new-expense button {

@@ -1,26 +1,38 @@
 import React, { useState } from 'react';
+import "./Expenses.css";
 import Card from "../UI/Card";
-import ExpenseItem from './ExpenseItem';
 import NewExpense from './NewExpense';
 import ExpensesFilter from './ExpensesFilter';
-import "./Expenses.css";
+import FilteredExpenses from './FilteredExpenses';
+import ExpensesChart from './ExpensesChart';
 
 const INIT_EXPENSES = [
-	{ id: Math.random().toString(), date: new Date(2016, 2, 12), title: 'Bike Insurance', amount: 20000},
-	{ id: Math.random().toString(), date: new Date(2018, 4, 24), title: 'Car Insurance', amount: 50000},
-	{ id: Math.random().toString(), date: new Date(2020, 6, 30), title: 'Life Insurance', amount: 120000},
-]
+	{ id: Math.random().toString(), date: new Date(2016, 2, 12), title: 'Bike Insurance', amount: 20000 },
+	{ id: Math.random().toString(), date: new Date(2018, 4, 24), title: 'Car Insurance', amount: 50000 },
+	{ id: Math.random().toString(), date: new Date(2020, 6, 30), title: 'Life Insurance', amount: 120000 },
+];
+
 const Expenses = () => {
 	const [expenses, setExpenses] = useState(INIT_EXPENSES);
+	const [isNewExpenseOpen, setIsNewExpenseOpen] = useState(false);
 	const [selectedFilterYear, setSelectedFilterYear] = useState('2020');
 	const [filteredExpenses, setFilteredExpenses] = useState(INIT_EXPENSES.filter(expense => expense.date.getFullYear() === Number(selectedFilterYear)));
 
 	console.log('Expenses reacted!!');
 
+	const onNewExpenseClickHandler = () => {
+		setIsNewExpenseOpen(true);
+	};
+
+	const onCancelNewExpenseHandler = () => {
+		setIsNewExpenseOpen(false);
+	};
+
 	const onSaveNewExpenseHandler = (newExpense) => {
 		addExpense(newExpense);
 		setExpenses(expenses);
 		onChangeFilterYearHandler(selectedFilterYear);
+		setIsNewExpenseOpen(false);
 	};
 
 	const onChangeFilterYearHandler = (selFilterYear) => {
@@ -38,11 +50,18 @@ const Expenses = () => {
 	};
 
 	return (<>
-		<NewExpense onSaveNewExpense={onSaveNewExpenseHandler} />
+		<section className='new-expense'>
+			{
+				isNewExpenseOpen ?
+					<NewExpense onCancelNewExpense={onCancelNewExpenseHandler} onSaveNewExpense={onSaveNewExpenseHandler} /> :
+					<button onClick={onNewExpenseClickHandler}>Add New Expense</button>
+			}
+		</section>
 
-		<Card className="expenses">
+		<Card className='expenses'>
 			<ExpensesFilter selectedYear={selectedFilterYear} onChangeFilterYear={onChangeFilterYearHandler} />
-			{filteredExpenses.map(expense => <ExpenseItem key={expense.id} id={expense.id} date={expense.date} title={expense.title} amount={expense.amount} />)}
+			<ExpensesChart items={filteredExpenses} />
+			<FilteredExpenses items={filteredExpenses} />
 		</Card>
 	</>
 	);

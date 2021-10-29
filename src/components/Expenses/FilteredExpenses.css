@@ -1,0 +1,14 @@
+.filtered-expenses h1 {
+	align-items: center;
+	text-align: center;
+	color: #3a3a3a;
+	font-size: 1rem;
+	margin: 0 1rem;
+	color: white;
+}
+
+@media (min-width: 580px) {
+	.filtered-expenses h1 {
+    	font-size: 1.25rem;
+	}
+}
